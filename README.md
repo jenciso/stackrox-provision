@@ -76,7 +76,11 @@ roxctl -e $ROX_CENTRAL_ADDRESS central \
 * Install via helm
  
 ```shell
-helm upgrade -n stackrox \
+helm repo add stackrox https://charts.stackrox.io
+
+helm repo update
+
+helm install -n stackrox \
   stackrox-secured-cluster-services rhacs/secured-cluster-services \
   --create-namespace \
   --set clusterName=$CLUSTER_NAME \
@@ -87,12 +91,16 @@ helm upgrade -n stackrox \
   --set collector.collectionMethod=NO_COLLECTION \
   -f cluster-init-bundle-$CLUSTER_NAME.yaml
 ```
+> Because we are using kind cluster, the collectionMethod is set to "NO_COLLECTION".
 
 * [Optional] Permit the network communication with the central kind network (172.28.1.0/24). 
-> It is only if you are using isolated docker network configuration for your kind clusters
+> It is only if you are using isolated docker network configuration when you provisioned your kind clusters
 
 ```shell
 sudo iptables -I FORWARD -s 172.28.1.0/24 -d 0/0 -j ACCEPT
 sudo iptables -I FORWARD -s 0/0 -d 172.28.1.0/24 -j ACCEPT
 ```
+## References
 
+* https://github.com/stackrox/helm-charts/tree/main/3.69.1/central-services 
+* https://github.com/stackrox/helm-charts/tree/main/3.69.1/secured-cluster-services
