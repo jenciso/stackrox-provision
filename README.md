@@ -1,6 +1,10 @@
-# Installation
+# StackRox Provision
 
-This is a simple document based on the [Oficial Documentation](https://github.com/stackrox/helm-charts/tree/main/3.69.1/central-services)
+## Intro
+
+This is a simple document based on the [Oficial Documentation](https://github.com/stackrox/helm-charts/tree/main/3.69.1/central-services). The ideia is create a local environment with multiple kubernetes clusters.
+
+![](https://imgur.com/B9zXKFA)
 
 ## Central services (Central)
 
