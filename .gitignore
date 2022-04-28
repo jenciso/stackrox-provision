@@ -1,0 +1,6 @@
+.env
+cluster-init-bundle-*
+generated-values.yaml
+cert.key
+cert.crt
+.README.md
