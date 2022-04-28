@@ -100,6 +100,12 @@ helm install -n stackrox \
 sudo iptables -I FORWARD -s 172.28.1.0/24 -d 0/0 -j ACCEPT
 sudo iptables -I FORWARD -s 0/0 -d 172.28.1.0/24 -j ACCEPT
 ```
+
+## Check your setup 
+
+if you provisioned two kind cluster, you should see in the Platform configuration platform as appears in the below image.
+![](https://i.imgur.com/VBHmHys.png)
+
 ## References
 
 * https://github.com/stackrox/helm-charts/tree/main/3.69.1/central-services 
