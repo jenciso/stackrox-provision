@@ -24,7 +24,8 @@ export $(cat .env | xargs)
 helm repo add stackrox https://charts.stackrox.io
 helm repo update
 
-helm install -n stackrox --create-namespace stackrox-central-services rhacs/central-services  \
+helm install -n stackrox stackrox-central-services rhacs/central-services \
+  --create-namespace \
   --set-file central.defaultTLS.cert=./cert.crt \
   --set-file central.defaultTLS.key=./cert.key \
   --set imagePullSecrets.username=$RH_USERNAME \
@@ -62,7 +63,9 @@ export ROX_API_TOKEN="$(cat ./register.token)"
 export ROX_CENTRAL_ADDRESS=stackrox.iplanet.site:32444
 
 export CLUSTER_NAME=local-standard
-roxctl -e $ROX_CENTRAL_ADDRESS central init-bundles generate cluster-init-$CLUSTER_NAME --output cluster-init-bundle-$CLUSTER_NAME.yaml
+roxctl -e $ROX_CENTRAL_ADDRESS central \
+  init-bundles generate cluster-init-$CLUSTER_NAME \
+  --output cluster-init-bundle-$CLUSTER_NAME.yaml
 ```
 
 * Permit the network communication with the central kind network (172.28.1.0/24). It is only if you are using isolated docker network configuration for your kind clusters
@@ -76,12 +79,13 @@ sudo iptables -I FORWARD -s 0/0 -d 172.28.1.0/24 -j ACCEPT
 export SECURITY_CONTEXT=standard
 
 helm upgrade -n stackrox \
-  --create-namespace stackrox-secured-cluster-services rhacs/secured-cluster-services \
-  -f cluster-init-bundle-$CLUSTER_NAME.yaml \
+  stackrox-secured-cluster-services rhacs/secured-cluster-services \
+  --create-namespace \
   --set clusterName=$CLUSTER_NAME \
   --set imagePullSecrets.username=$RH_USERNAME \
   --set imagePullSecrets.password=$RH_PASSWORD \
   --set centralEndpoint=$ROX_CENTRAL_ADDRESS \
   --set clusterLabels.env=local \
-  --set collector.collectionMethod=NO_COLLECTION
+  --set collector.collectionMethod=NO_COLLECTION \
+  -f cluster-init-bundle-$CLUSTER_NAME.yaml
 ```
