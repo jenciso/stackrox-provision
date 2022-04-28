@@ -34,7 +34,7 @@ helm install -n stackrox stackrox-central-services rhacs/central-services \
   --set central.exposure.nodePort.port=32444
 ```
 
-* Optionally. If you want to save this deployment configuration. Save the `generated-values.yaml` file created by this below command.
+* [Optional] If you want to save this deployment configuration. Save the `generated-values.yaml` file created by this below command.
 
 ```shell
 kubectl -n stackrox get secret stackrox-generated-vmxhju \
