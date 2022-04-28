@@ -76,8 +76,6 @@ roxctl -e $ROX_CENTRAL_ADDRESS central \
 * Install via helm
  
 ```shell
-export SECURITY_CONTEXT=standard
-
 helm upgrade -n stackrox \
   stackrox-secured-cluster-services rhacs/secured-cluster-services \
   --create-namespace \
