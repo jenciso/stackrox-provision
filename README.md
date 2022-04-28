@@ -18,7 +18,7 @@ This is a simple document based on the [Oficial Documentation](https://github.co
 
 * Running the helm install:
 
-```
+```shell
 export $(cat .env | xargs)
 
 helm repo add stackrox https://charts.stackrox.io
@@ -35,7 +35,8 @@ helm install -n stackrox stackrox-central-services rhacs/central-services \
 ```
 
 * Optionally. If you want to save this deployment configuration. Save the `generated-values.yaml` file created by this below command.
-```
+
+```shell
 kubectl -n stackrox get secret stackrox-generated-vmxhju \
       -o go-template='{{ index .data "generated-values.yaml" }}' | \
       base64 --decode > generated-values.yaml
@@ -58,7 +59,7 @@ kubectl -n stackrox get secret stackrox-generated-vmxhju \
 
 * Download the CLI from the central UI
 ![](https://imgur.com/9zdzlAx.png)
-```
+```shell
 export ROX_API_TOKEN="$(cat ./register.token)"
 export ROX_CENTRAL_ADDRESS=stackrox.iplanet.site:32444
 
@@ -68,14 +69,9 @@ roxctl -e $ROX_CENTRAL_ADDRESS central \
   --output cluster-init-bundle-$CLUSTER_NAME.yaml
 ```
 
-* Permit the network communication with the central kind network (172.28.1.0/24). It is only if you are using isolated docker network configuration for your kind clusters
-```
-sudo iptables -I FORWARD -s 172.28.1.0/24 -d 0/0 -j ACCEPT
-sudo iptables -I FORWARD -s 0/0 -d 172.28.1.0/24 -j ACCEPT
-```
-
-* Install via helm 
-```
+* Install via helm
+ 
+```shell
 export SECURITY_CONTEXT=standard
 
 helm upgrade -n stackrox \
@@ -89,3 +85,12 @@ helm upgrade -n stackrox \
   --set collector.collectionMethod=NO_COLLECTION \
   -f cluster-init-bundle-$CLUSTER_NAME.yaml
 ```
+
+* [Optional] Permit the network communication with the central kind network (172.28.1.0/24). 
+> It is only if you are using isolated docker network configuration for your kind clusters
+
+```shell
+sudo iptables -I FORWARD -s 172.28.1.0/24 -d 0/0 -j ACCEPT
+sudo iptables -I FORWARD -s 0/0 -d 172.28.1.0/24 -j ACCEPT
+```
+
