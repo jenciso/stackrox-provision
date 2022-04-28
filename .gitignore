@@ -3,4 +3,5 @@ cluster-init-bundle-*
 generated-values.yaml
 cert.key
 cert.crt
+register.token
 .README.md
