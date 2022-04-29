@@ -2,7 +2,7 @@
 
 ## Intro
 
-This is a simple document based on the [Oficial Documentation](https://github.com/stackrox/helm-charts/tree/main/3.69.1/central-services). The ideia is create a local environment with multiple kubernetes clusters provisioned via kind.
+This is a simple document based on the [Oficial Documentation](https://github.com/stackrox/helm-charts/tree/main/3.69.1/central-services). The idea is to create a local environment with multiple Kubernetes clusters provisioned via kind for laboratoy purposes.
 
 ![](https://raw.githubusercontent.com/jenciso/diagrams/master/draw.io/stackrox-provision.drawio.svg)
 
@@ -63,6 +63,8 @@ kubectl -n stackrox get secret stackrox-generated-vmxhju \
 
 * Download the CLI from the central UI
 ![](https://imgur.com/9zdzlAx.png)
+
+* Generate config file to deploy in the Kubernetes clients 
 ```shell
 export ROX_API_TOKEN="$(cat ./register.token)"
 export ROX_CENTRAL_ADDRESS=stackrox.iplanet.site:32444
@@ -103,7 +105,7 @@ sudo iptables -I FORWARD -s 0/0 -d 172.28.1.0/24 -j ACCEPT
 
 ## Check your setup 
 
-if you provisioned two kind cluster, you should see in the Platform configuration platform as appears in the below image.
+if you provisioned two clusters, you should see them in the “Platform configuration > Clusters” menu, as shown below.
 ![](https://i.imgur.com/VBHmHys.png)
 
 ## References
